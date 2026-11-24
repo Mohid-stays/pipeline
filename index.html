@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Follow one prompt through the machine: an interactive, cyberpunk guide to the end-to-end Large Language Model (LLM) pipeline.">
+  <title>GHOST_IN_THE_TOKENS // LLM Pipeline</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Matrix Rain Canvas -->
+  <canvas id="matrix-canvas" aria-hidden="true"></canvas>
+
+  <!-- CRT Scanlines and Vignette Overlay -->
+  <div class="crt-overlay" aria-hidden="true"></div>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-container" aria-hidden="true">
+    <div class="scroll-progress-bar" id="scroll-progress"></div>
+  </div>
+
+  <!-- Sticky Terminal HUD Navigation -->
+  <header class="hud-nav" id="hud-nav" role="banner">
+    <div class="hud-container">
+      <div class="hud-brand">
+        <span class="hud-status-dot"></span>
+        <span class="hud-title">GHOST://TOKENS</span>
+        <span class="hud-version">[v4.09]</span>
+      </div>
+      <nav class="hud-links" role="navigation" aria-label="Main Navigation">
+        <a href="#hero" class="hud-link active" data-nav="hero">[ HOME ]</a>
+        <a href="#pipeline" class="hud-link" data-nav="pipeline">[ PIPELINE ]</a>
+        <a href="#tokenizer" class="hud-link" data-nav="tokenizer">[ TOKENIZER ]</a>
+        <a href="#attention" class="hud-link" data-nav="attention">[ ATTENTION ]</a>
+        <a href="#terminal" class="hud-link" data-nav="terminal">[ TERMINAL ]</a>
+      </nav>
+      <div class="hud-telemetry" aria-hidden="true">
+        <span class="hud-tag">GPU: 8xH100</span>
+        <span class="hud-tag">STATUS: ONLINE</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 1: BOOT SCREEN / HERO -->
+    <section id="hero" class="section hero-section" aria-label="Hero and Boot Sequence">
+      <div class="hero-content">
+        <!-- Terminal Window: Boot Sequence -->
+        <div class="terminal-card boot-window" id="boot-window">
+          <div class="terminal-header">
+            <div class="window-controls">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="window-title">sys_boot_sequence.sh — [pts/0]</div>
+            <div class="window-badge">AUTOPILOT</div>
+          </div>
+          <div class="terminal-body boot-terminal-body">
+            <div id="boot-log" class="boot-log" aria-live="polite"></div>
+            <div class="boot-cursor-line" id="boot-cursor-line">
+              <span class="prompt-symbol">&gt;</span>
+              <span class="blinking-block"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Hero Intro (revealed after boot sequence) -->
+        <div class="hero-core-reveal" id="hero-reveal">
+          <div class="glitch-wrapper">
+            <h1 class="glitch-title" data-text="GHOST IN THE TOKENS">GHOST IN THE TOKENS</h1>
+          </div>
+          <p class="tagline">&gt; Follow one prompt through the machine.</p>
+          
+          <div class="sys-metrics-ribbon">
+            <div class="metric-chip">
+              <span class="metric-label">WEIGHTS</span>
+              <span class="metric-val">405B FP16</span>
+            </div>
+            <div class="metric-chip">
+              <span class="metric-label">CONTEXT</span>
+              <span class="metric-val">128K TOKENS</span>
+            </div>
+            <div class="metric-chip">
+              <span class="metric-label">KV_CACHE</span>
+              <span class="metric-val">ALLOCATED</span>
+            </div>
+            <div class="metric-chip">
+              <span class="metric-label">STATE</span>
+              <span class="metric-val status-green">READY</span>
+            </div>
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="#pipeline" class="cyber-btn primary-btn" id="btn-enter-pipeline">
+              <span class="btn-bracket">[</span>
+              <span class="btn-text">&gt; ENTER THE PIPELINE</span>
+              <span class="btn-bracket">]</span>
+              <span class="btn-glow"></span>
+            </a>
+            <a href="#terminal" class="cyber-btn secondary-btn">
+              <span class="btn-bracket">[</span>
+              <span class="btn-text">&gt; OPEN SHELL</span>
+              <span class="btn-bracket">]</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="scroll-indicator" aria-hidden="true">
+        <span class="scroll-arrow">&#x25BC;</span>
+        <span class="scroll-text">SCROLL TO TRACE DATAFLOW</span>
+      </div>
+    </section>
+
+    <!-- SECTION 2: THE PIPELINE MAP -->
+    <section id="pipeline" class="section pipeline-section" aria-label="The 10 Pipeline Stages">
+      <div class="section-header">
+        <div class="section-tag">[ ARCHITECTURE_SCHEMATIC ]</div>
+        <h2 class="section-title">THE 10-STAGE NEURAL PIPELINE</h2>
+        <p class="section-desc">From raw humanity text dumps to sentient-like inference: trace every transformation undergone by weights and tokens.</p>
+      </div>
+
+      <div class="pipeline-container">
+        <!-- Stage Nodes Map Tracker -->
+        <div class="pipeline-nav-panel">
+          <div class="pipeline-circuit-track" id="circuit-track">
+            <div class="circuit-wire">
+              <div class="wire-pulse-packet" id="wire-packet"></div>
+            </div>
+            <div class="pipeline-nodes" id="pipeline-nodes" role="tablist" aria-label="Pipeline Stages">
+              <!-- Dynamically populated or static stage nodes -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Stage Inspector Card -->
+        <div class="terminal-card inspector-card" id="stage-inspector">
+          <div class="terminal-header">
+            <div class="window-controls">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="window-title" id="inspector-window-title">STAGE_01_DATA_COLLECTION.md</div>
+            <div class="inspector-nav-buttons">
+              <button class="nav-step-btn" id="stage-prev-btn" title="Previous Stage">&lt; PREV</button>
+              <button class="nav-step-btn" id="stage-next-btn" title="Next Stage">NEXT &gt;</button>
+            </div>
+          </div>
+          
+          <div class="terminal-body inspector-body">
+            <div class="inspector-stage-badge" id="inspector-badge">STAGE 01 // 10</div>
+            <h3 class="inspector-heading" id="inspector-title">01 DATA COLLECTION</h3>
+            
+            <div class="inspector-block hacker-analogy-box">
+              <div class="block-tag">[ HACKER ANALOGY ]</div>
+              <p class="analogy-text" id="inspector-analogy">
+                Scraping the collective digital consciousness of humanity into a raw, unfiltered 15-terabyte sinkhole.
+              </p>
+            </div>
+
+            <div class="inspector-grid">
+              <div class="inspector-block">
+                <div class="block-tag">[ WHAT HAPPENS HERE ]</div>
+                <div class="block-content" id="inspector-description">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <div class="inspector-block">
+                <div class="block-tag">[ TOOLS, PROTOCOLS &amp; SPECS ]</div>
+                <div class="block-content" id="inspector-tools">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+            <div class="inspector-metrics" id="inspector-metrics">
+              <!-- Injected stats -->
+            </div>
+          </div>
+          <div class="terminal-footer">
+            <span class="term-status-line" id="inspector-status-line">DATA_PACKET_CHECKSUM: OK // HOVER OR CLICK ANY NODE TO SWITCH</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: LIVE TOKENIZER DEMO -->
+    <section id="tokenizer" class="section tokenizer-section" aria-label="Live Tokenizer Demo">
+      <div class="section-header">
+        <div class="section-tag">[ STAGE_03_SANDBOX ]</div>
+        <h2 class="section-title">LIVE TOKENIZER LABORATORY</h2>
+        <p class="section-desc">Computers do not read words. They ingest numerical integers mapped through Byte-Pair Encoding (BPE). Test the subword slicer below.</p>
+      </div>
+
+      <div class="terminal-card tokenizer-card">
+        <div class="terminal-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="window-title">bpe_tokenizer_v3.2.wasm</div>
+          <div class="tokenizer-presets" aria-label="Presets">
+            <span class="preset-label">PRESETS:</span>
+            <button class="preset-btn" data-preset="cyberpunk">Cyberpunk</button>
+            <button class="preset-btn" data-preset="attention">Transformers</button>
+            <button class="preset-btn" data-preset="code">JavaScript</button>
+            <button class="preset-btn" data-preset="philosophy">Consciousness</button>
+          </div>
+        </div>
+
+        <div class="terminal-body tokenizer-body">
+          <div class="tokenizer-input-wrapper">
+            <label for="tokenizer-input" class="input-label">&gt; INPUT RAW PROMPT STREAM:</label>
+            <textarea id="tokenizer-input" rows="3" spellcheck="false" placeholder="Type anything here to witness the token dissection..."></textarea>
+          </div>
+
+          <div class="tokenizer-stats-bar">
+            <div class="tok-stat">
+              <span class="tok-stat-label">CHARACTERS</span>
+              <span class="tok-stat-val" id="stat-chars">0</span>
+            </div>
+            <div class="tok-stat">
+              <span class="tok-stat-label">TOKENS COUNT</span>
+              <span class="tok-stat-val val-neon" id="stat-tokens">0</span>
+            </div>
+            <div class="tok-stat">
+              <span class="tok-stat-label">TOKENS/WORD</span>
+              <span class="tok-stat-val" id="stat-ratio">0.00</span>
+            </div>
+            <div class="tok-stat">
+              <span class="tok-stat-label">COMPRESSION</span>
+              <span class="tok-stat-val" id="stat-compression">0.0%</span>
+            </div>
+            <div class="tok-stat">
+              <span class="tok-stat-label">EST. MEMORY</span>
+              <span class="tok-stat-val" id="stat-bytes">0 B</span>
+            </div>
+          </div>
+
+          <div class="token-chips-display">
+            <div class="chips-header">
+              <span class="chips-title">&gt; TOKENIZED DISSECTION (CLICK CHIP FOR DETAILS):</span>
+              <span class="chips-legend">
+                <span class="legend-box" style="background: rgba(0,255,65,0.2); border-color:#00ff41;"></span> Subword
+                <span class="legend-box" style="background: rgba(0,229,255,0.2); border-color:#00e5ff;"></span> Root
+                <span class="legend-box" style="background: rgba(255,43,214,0.2); border-color:#ff2bd6;"></span> Punct/Spec
+              </span>
+            </div>
+            <div class="chips-stream" id="token-chips-stream" role="region" aria-live="polite">
+              <!-- Dynamically populated chips -->
+            </div>
+          </div>
+
+          <div class="token-inspector-footer" id="token-inspector-footer">
+            <span class="footer-prompt-icon">&#x2139;</span>
+            <span class="footer-msg" id="token-detail-msg">Hover or click any token chip above to view its internal token ID, raw byte representation, and hex code.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: INSIDE THE TRANSFORMER (ATTENTION) -->
+    <section id="attention" class="section attention-section" aria-label="Self-Attention Visualization">
+      <div class="section-header">
+        <div class="section-tag">[ STAGE_05_DEEP_DIVE ]</div>
+        <h2 class="section-title">INSIDE THE TRANSFORMER: SELF-ATTENTION</h2>
+        <p class="section-desc">"Attention is all you need." Words connect across contextual space. Hover over any word to inspect how its Query vector weights other Key vectors via Softmax(Q·Kᵀ / √dₖ).</p>
+      </div>
+
+      <div class="terminal-card attention-card">
+        <div class="terminal-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="window-title">scaled_dot_product_attention_head_07.cu</div>
+          <div class="attention-presets">
+            <span class="preset-label">CONTEXT:</span>
+            <button class="attn-preset-btn active" data-attn="tired">Tired Animal</button>
+            <button class="attn-preset-btn" data-attn="wide">Wide Street</button>
+            <button class="attn-preset-btn" data-attn="bank">River Bank</button>
+          </div>
+        </div>
+
+        <div class="terminal-body attention-body">
+          <!-- Token sequence interactive bar -->
+          <div class="attention-sentence-bar" id="attention-tokens-container">
+            <!-- Dynamically created words -->
+          </div>
+
+          <!-- SVG Visualizer Canvas for Attention Lines -->
+          <div class="attention-canvas-wrapper" id="attention-canvas-wrapper">
+            <svg id="attention-svg" class="attention-svg" aria-label="Attention weight connections"></svg>
+            <div class="attention-overlay-hint" id="attn-overlay-hint">
+              &gt; HOVER OVER ANY TOKEN ABOVE TO FIRE THE ATTENTION HEAD MATRIX
+            </div>
+          </div>
+
+          <!-- Attention Weights Telemetry Panel -->
+          <div class="attention-meta-grid">
+            <div class="meta-box">
+              <div class="meta-title">&gt; ACTIVE QUERY TOKEN (Q):</div>
+              <div class="meta-value query-token-display" id="active-query-token">None (Hover a token)</div>
+              <p class="meta-explainer">The query vector probes the prompt sequence asking: "Which contextual entities resolve my ambiguity?"</p>
+            </div>
+
+            <div class="meta-box">
+              <div class="meta-title">&gt; ATTENTION WEIGHTS DISTRIBUTION:</div>
+              <div class="attention-bars-list" id="attention-bars-list">
+                <!-- Injected mini weight bars -->
+                <div class="empty-bar-msg">Awaiting token selection...</div>
+              </div>
+            </div>
+
+            <div class="meta-box math-formula-box">
+              <div class="meta-title">&gt; MATHEMATICAL FORMULATION:</div>
+              <div class="code-math">
+                Attention(Q, K, V) = softmax( <span class="math-hl">Q · Kᵀ</span> / √dₖ ) · <span class="math-hl-cyan">V</span>
+              </div>
+              <ul class="qkv-breakdown">
+                <li><span class="qkv-tag tag-q">Q (Query)</span>: What am I searching for?</li>
+                <li><span class="qkv-tag tag-k">K (Key)</span>: What features do I contain?</li>
+                <li><span class="qkv-tag tag-v">V (Value)</span>: What information do I transmit?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: INTERACTIVE TERMINAL EASTER EGG -->
+    <section id="terminal" class="section terminal-section" aria-label="Interactive Terminal Easter Egg">
+      <div class="section-header">
+        <div class="section-tag">[ ROOT_SHELL_ACCESS ]</div>
+        <h2 class="section-title">INTERACTIVE NEURAL TERMINAL</h2>
+        <p class="section-desc">Direct interface to the LLM runtime kernel. Type commands to query weights, probe the pipeline, tokenize custom payloads, or breach access controls.</p>
+      </div>
+
+      <div class="terminal-card cli-terminal-card" id="interactive-cli">
+        <div class="terminal-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="window-title">user@llm-neural-cluster:~# — (zsh)</div>
+          <div class="terminal-actions">
+            <button class="term-mini-btn" id="cli-clear-btn" title="Clear console">[CLEAR]</button>
+            <button class="term-mini-btn" id="cli-help-btn" title="Show commands">[HELP]</button>
+          </div>
+        </div>
+
+        <div class="terminal-body cli-body" id="cli-screen" role="log" aria-live="polite">
+          <div class="cli-output" id="cli-output">
+            <div class="cli-banner">
+====================================================================
+  GHOST IN THE TOKENS // NEURAL TERMINAL v4.8.0
+  Security Level: RESTRICTED // Kernel: 6.9.11-deepmind-llm
+  Type '<span class="neon-cyan">help</span>' to inspect valid commands.
+====================================================================
+            </div>
+          </div>
+          
+          <div class="cli-input-line">
+            <span class="cli-prompt"><span class="user-part">user</span>@<span class="host-part">llm</span>:<span class="path-part">~$</span></span>
+            <input type="text" id="cli-input" class="cli-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Command line input">
+            <span class="blinking-block cli-block-cursor" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="terminal-footer cli-hint-footer">
+          <span class="footer-tip">PRO TIP: Use <span class="key-badge">&#x2191;</span> and <span class="key-badge">&#x2193;</span> for command history. Try: <span class="term-quick-cmd" data-cmd="pipeline">pipeline</span>, <span class="term-quick-cmd" data-cmd="tokenize cyberpunk">tokenize cyberpunk</span>, <span class="term-quick-cmd" data-cmd="sudo hack">sudo hack</span></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- SECTION 6: FOOTER -->
+  <footer class="cyber-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-transmission">
+        <span class="footer-slash">//</span>
+        <span class="transmission-text">END OF TRANSMISSION</span>
+        <span class="blinking-cursor">_</span>
+      </div>
+
+      <div class="footer-status-ribbon">
+        <span class="status-item"><span class="indicator-dot"></span> SYSTEM INTEGRITY: 100%</span>
+        <span class="status-item"><span class="indicator-dot"></span> NEURAL EMISSION: NOMINAL</span>
+        <span class="status-item"><span class="indicator-dot"></span> KV CACHE: PERSISTED</span>
+      </div>
+
+      <div class="footer-credits">
+        <p class="credit-line">BUILT WITH CYBERPUNK LOVE FOR THE HACKERS, RESEARCHERS &amp; PROMPT ENGINEERS.</p>
+        <p class="sub-credit">PLAIN HTML5 &bull; CSS3 &bull; VANILLA ES6+ &bull; ZERO EXTERNAL FRAMEWORKS</p>
+      </div>
+
+      <div class="footer-back-top">
+        <a href="#hero" class="back-top-link" id="back-to-top">[ ^ RETURN TO TOP ^ ]</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
